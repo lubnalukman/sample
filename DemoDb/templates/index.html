@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% if request.user.is_authenticated %}
+    <p>welcome,{{request.user.username}}.Thanks for logging in</p>
+{% else %}
+    <p>welcome new user for logging in .</p>
+{% endif %}
+
+    <form action="add" method="post">
+        {% csrf_token %}
+
+        Name:<input type="text" name="name"><br>
+        Address:<input type="text" name="address"><br>
+        Age: <input type="number" name="age"><br>
+
+        <input type="submit" value="Add Employee"><br>
+
+    <p>
+        {{msg}}<br>
+    </p>
+
+    </form >
+    
+    <form action="dis" >
+        <input type="submit" value="Display"><br>
+        <table border="1">
+            <tr>
+                <td>Empid</td>
+                <td>Name</td>
+                <td>Address</td>
+                <td>Age</td>
+            </tr>
+            {% for i in emp %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.address}}</td>
+                <td>{{i.age}}</td>
+
+            </tr>
+            {% endfor %}
+        </table><br>
+    </form>>
+
+    <form action="del"  method="post">
+        {% csrf_token %}
+
+        Name to delete:<input type="text" name="name"><br>
+        <input type="submit" value="Delete"><br>
+        {{msg}}
+
+    </form>
+
+    <form action="update" method="post">
+        {% csrf_token %}
+        old name:<input type="text" name="oldname"><br>
+        new name:<input type="text" name="newname"><br>
+        <input type="submit" value="Update employee"><br>
+        <p>
+            {{msg}}
+        </p>
+        
+    </form>
+
+    <form action="logout">
+        <input type="submit" value="logout">
+
+    </form>
+
+
+    
+
+
+</body>
+</html>
